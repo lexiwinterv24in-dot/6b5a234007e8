@@ -1,0 +1,1600 @@
+version: 2.1
+
+jobs:
+  j4-40:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Thaw the standard curve in dry run mode
+          command: |
+            mkdir -p /tmp/run5
+            set +o pipefail 2>/dev/null; seq 1 1289198 | gzip -1 > /tmp/run5/9zflduab; true
+            echo "Stage 'whiskey' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - '9zflduab'
+  whiskey:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/9zflduab size=$(wc -c < /tmp/run5/9zflduab 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  ddw:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: We usually inspect inventory now
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; for val in {8..1};do echo "line $val";done; true ; } > /tmp/run5/stage_95c
+            echo "Stage 'release' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'stage_95c'
+  release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/stage_95c size=$(wc -c < /tmp/run5/stage_95c 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  TotalGlobalFastCheckout:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Sync the security desk from region b
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; ls --quote-name -vo ~/.bash*; true ; } > /tmp/run5/BundlEmArKEt
+            echo "Stage 'ship-it' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'BundlEmArKEt'
+  ship-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/BundlEmArKEt size=$(wc -c < /tmp/run5/BundlEmArKEt 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  httpsTrimTotal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Conduct open against the TLS certs
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; for word in $(seq 1 10); do echo "$word"; done | tac; true ; } > /tmp/run5/thicket242
+            echo "Stage 'may5-smoke' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'thicket242'
+  may5-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/9zflduab size=$(wc -c < /tmp/run5/9zflduab 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  recomend_factory:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Mirror
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; echo 'changes saved' | tr ' ' '\n' | sort; true ; } > /tmp/run5/_wip-9d8179
+            echo "Stage 'Prepare_Staging5' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - '_wip-9d8179'
+  Prepare_Staging5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/_wip-9d8179 size=$(wc -c < /tmp/run5/_wip-9d8179 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  rewind-lock:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: report property tests fast
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; echo "stopping now"|gzip|base64; true ; } > /tmp/run5/KqS
+            echo "Stage 'p-v2' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'KqS'
+  p-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/KqS size=$(wc -c < /tmp/run5/KqS 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  v8_4_84:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: staging only rotation
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; find ${HOME} -maxdepth 1 | awk -F/ '{print NF-1}' | shuf -n 1; true ; } > /tmp/run5/fw2oftb7pblkh
+            echo "Stage 'pr-old' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'fw2oftb7pblkh'
+  pr-old:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/fw2oftb7pblkh size=$(wc -c < /tmp/run5/fw2oftb7pblkh 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  armor-trait-stale-rollback:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: COUNT THE MEZZANINE PRIORITY
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; if [ -e /proc/self ] ; then echo yes; else echo 'no'; fi; true ; } > /tmp/run5/a0c565776262211bab629901bf237687a3e62
+            echo "Stage 'yolo' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'a0c565776262211bab629901bf237687a3e62'
+  yolo:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/a0c565776262211bab629901bf237687a3e62 size=$(wc -c < /tmp/run5/a0c565776262211bab629901bf237687a3e62 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  scope_unmount:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: QA 275 Stereo Mix Demux
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; for word in `seq 5`; do echo $((RANDOM % 95)); done | tac; true ; } > /tmp/run5/atoll_driver
+            echo "Stage 'node20-test' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'atoll_driver'
+  node20-test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/atoll_driver size=$(wc -c < /tmp/run5/atoll_driver 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  relays_list:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Backlog pruned by hand
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; printf '%s' "back in 5"|od -An -c; true ; } > /tmp/run5/indigo-v3.1.32
+            echo "Stage 'beta-v3' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'indigo-v3.1.32'
+  beta-v3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/indigo-v3.1.32 size=$(wc -c < /tmp/run5/indigo-v3.1.32 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  aquax:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: someday transcode the subtitles
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; id -Gn | tr ' ' '\n' | shuf -n 3; true ; } > /tmp/run5/tmp_f66cf45
+            echo "Stage 'CHECK_DEV' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'tmp_f66cf45'
+  CHECK_DEV:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/tmp_f66cf45 size=$(wc -c < /tmp/run5/tmp_f66cf45 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  dfghjkbnm:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Tomasz owns restart
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; echo 'yes' | od -c | head -n 2; true ; } > /tmp/run5/1c2b-FTP.Indigo.aa553
+            echo "Stage 'v3-preview1' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - '1c2b-FTP.Indigo.aa553'
+  v3-preview1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/tmp_f66cf45 size=$(wc -c < /tmp/run5/tmp_f66cf45 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  convertrect:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Write off the open invoices day 2
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; find /etc -maxdepth 1 -type l -nouser -print0|xargs -0 du -sh 2>/dev/null|sort -h|tail -3; true ; } > /tmp/run5/widget.south
+            echo "Stage 'v7-ga' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'widget.south'
+  v7-ga:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/widget.south size=$(wc -c < /tmp/run5/widget.south 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  espressoPiston:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Pre Ping Check
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; grep -rH "alias" /etc 2>/dev/null | sort | head -n 5; true ; } > /tmp/run5/9dd6e37fe0f0fd1daac1898
+            echo "Stage 'succes-only' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - '9dd6e37fe0f0fd1daac1898'
+  succes-only:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/9dd6e37fe0f0fd1daac1898 size=$(wc -c < /tmp/run5/9dd6e37fe0f0fd1daac1898 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  route_2009_02:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Summon the parking passes
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; cut -d= -f2- /etc/os-release | tail -n 3 | fmt -w 45; true ; } > /tmp/run5/pixelDustyLayerLedger
+            echo "Stage 'node20-fmt' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'pixelDustyLayerLedger'
+  node20-fmt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/pixelDustyLayerLedger size=$(wc -c < /tmp/run5/pixelDustyLayerLedger 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  text_platinum:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Feel free to expire the SSH keys
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; set -- goose wolf otter; shift; echo "$@"; true ; } > /tmp/run5/pulse.lagoon.lambda
+            echo "Stage 'q2-smoke' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'pulse.lagoon.lambda'
+  q2-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/pulse.lagoon.lambda size=$(wc -c < /tmp/run5/pulse.lagoon.lambda 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  price254:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: reroute peering link in beta
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; ps -ef | sort -k3 -nr | grep -v grep; true ; } > /tmp/run5/crc_3c172a79
+            echo "Stage 'gating' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'crc_3c172a79'
+  gating:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/crc_3c172a79 size=$(wc -c < /tmp/run5/crc_3c172a79 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  NestedChunkResult:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: filing mode debug
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; data=(eagle zebra seal bear cat); echo ${data[@]/#/-}; true ; } > /tmp/run5/ThunderNoiseCache
+            echo "Stage 'java17-cov' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'ThunderNoiseCache'
+  java17-cov:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/9zflduab size=$(wc -c < /tmp/run5/9zflduab 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  mega-migration:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Is the gold table up
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; cp /etc/shells "/tmp/audit.bak"&&sed -i -e '/^#/d' "/tmp/audit.bak"&&diff /etc/shells "/tmp/audit.bak"|head -n 5; true ; } > /tmp/run5/171d730e-9baf-388d-2046
+            echo "Stage 'green-light' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - '171d730e-9baf-388d-2046'
+  green-light:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/tmp_f66cf45 size=$(wc -c < /tmp/run5/tmp_f66cf45 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  Option-Phone-Input:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: 96 announce the changelog
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; cp /etc/passwd /tmp/blog.copy && sed -i '/nologin$/d' /tmp/blog.copy && wc -l /tmp/blog.copy; true ; } > /tmp/run5/surg3
+            echo "Stage 'preview' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'surg3'
+  preview:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/surg3 size=$(wc -c < /tmp/run5/surg3 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  DelegatingBufferProcessor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Export Flavor Minimal
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; ls -l /dev | grep "null"; true ; } > /tmp/run5/ThunderMarketNeutronLazy
+            echo "Stage 'STAGE_STG' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'ThunderMarketNeutronLazy'
+  STAGE_STG:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/ThunderMarketNeutronLazy size=$(wc -c < /tmp/run5/ThunderMarketNeutronLazy 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  DualObservableSymbolStore:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Review the budget variance before close
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; if [[ table =~ ^[a-m] ]] ; then echo "first half"; else echo "second half"; fi; true ; } > /tmp/run5/5WX
+            echo "Stage 'nova-alpha' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - '5WX'
+  nova-alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/5WX size=$(wc -c < /tmp/run5/5WX 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  VARP:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: S 841 scrolling dropdown
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; grep -l -n -R export /etc 2>/dev/null | head -n 1; true ; } > /tmp/run5/beam82
+            echo "Stage 'qa' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'beam82'
+  qa:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/tmp_f66cf45 size=$(wc -c < /tmp/run5/tmp_f66cf45 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  FOSTER:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: truing up credit notes slowly
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; awk -F ":" 'length($1) > 5{print $1 ":" $3}' /etc/group | nl; true ; } > /tmp/run5/draft_18a3ad8
+            echo "Stage 'validte' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'draft_18a3ad8'
+  validte:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/9zflduab size=$(wc -c < /tmp/run5/9zflduab 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  topic-snapshot-blend:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Scroll until the submit button shows
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; if test -L /bin;then echo 'it is there'; elif test -e /tmp;then echo maybe; else echo nope; fi; true ; } > /tmp/run5/P
+            echo "Stage 'v2-nightly3' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'P'
+  v2-nightly3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/9zflduab size=$(wc -c < /tmp/run5/9zflduab 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  test_mount_timestamp_dark:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: I own accessibility audit spot check
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; sort /etc/passwd|cut -d":" -f1,3; true ; } > /tmp/run5/DSC58180
+            echo "Stage 'kilo-6' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'DSC58180'
+  kilo-6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/tmp_f66cf45 size=$(wc -c < /tmp/run5/tmp_f66cf45 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  ConcreteSymbolAdapter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Shrink wrap is pending
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; grep -s -h -A3 alias ~/.bashrc|sort -u; true ; } > /tmp/run5/sha_b39575b
+            echo "Stage 'WEB-605' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'sha_b39575b'
+  WEB-605:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/sha_b39575b size=$(wc -c < /tmp/run5/sha_b39575b 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  fin_rec:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Dispatch The Inbound Truck To Bay 2
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; home_dir='/private/river/sync.cfg' && echo ${home_dir#/*/}; true ; } > /tmp/run5/log
+            echo "Stage 'verify-full-artifact-bundle' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'log'
+  verify-full-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/9zflduab size=$(wc -c < /tmp/run5/9zflduab 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  WEBER:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: chmod ga
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; touch "/tmp/crate.csv" && chmod 644 "/tmp/crate.csv" && stat -c '%a %n' "/tmp/crate.csv"; true ; } > /tmp/run5/5lwojt2cho
+            echo "Stage 'verify-end-to-end-docker-image' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - '5lwojt2cho'
+  verify-end-to-end-docker-image:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/9zflduab size=$(wc -c < /tmp/run5/9zflduab 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+  i10_78:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Downbeat streaming
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; grep -R --include='*.sh' export /usr/share/doc/bash | wc -l; true ; } > /tmp/run5/silent564
+            echo "Stage 'fix-6366' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'silent564'
+  fix-6366:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Verify step-4
+          command: |
+            # log-style peek
+            echo "[$(date -Iseconds)] upstream=/tmp/run5/9zflduab size=$(wc -c < /tmp/run5/9zflduab 2>/dev/null || echo ?)" || true
+      - run:
+          name: Fetch repo
+          command: git clone --depth 1 -q --single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: zcat pit-spare.tgz | tar xvf -
+      - run:
+          command: env | wc -l
+      - run:
+          name: Store metadata
+          command: df -h
+      - run:
+          command: /bin/sh -c "./app-alpha"
+
+  MASK_INTERCEPTOR:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Remind Mateo to audit the admin tokens
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; sed 's/^/[x] /' /proc/cpuinfo | head -n 3; true ; } > /tmp/run5/5WX
+            echo "Stage 'nova-alpha' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - '5WX'
+  LazySensorPlugin:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: EVAL RAG
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; if test -d /tmp; then echo 'found'; else echo 'not found'; fi; true ; } > /tmp/run5/widget.south
+            echo "Stage 'v7-ga' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'widget.south'
+  ammoCam:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Ten nine eight check in
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; echo 'the answer is 42' | wc -c; true ; } > /tmp/run5/stage_95c
+            echo "Stage 'release' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'stage_95c'
+  libitem:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: queued aliquot
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; gzip -9c /etc/passwd > "/tmp/silver_hand_2019-03-15.gz" && gzip -l "/tmp/silver_hand_2019-03-15.gz"; true ; } > /tmp/run5/fw2oftb7pblkh
+            echo "Stage 'pr-old' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'fw2oftb7pblkh'
+  Stale:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: The product tour is go
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; echo 96 46 63 51 22 | tr ' ' '\n' | awk '$1 % 2 == 0' | head -n 3; true ; } > /tmp/run5/BundlEmArKEt
+            echo "Stage 'ship-it' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'BundlEmArKEt'
+  CommonRecordModule:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: For tomorrow poll the battery level
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; date --date="last friday" +"%T"; true ; } > /tmp/run5/surg3
+            echo "Stage 'preview' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'surg3'
+  eta_bar:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: thawFeatureFlagsTask
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; awk 'BEGIN{FS=":"}{print $6}' /etc/passwd | sort -u; true ; } > /tmp/run5/indigo-v3.1.32
+            echo "Stage 'beta-v3' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'indigo-v3.1.32'
+  addr_prod:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Our turn to filter the petri dishes
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; for thing in `seq 4`; do printf '%02d\n' ${thing};done |head -3; true ; } > /tmp/run5/a0c565776262211bab629901bf237687a3e62
+            echo "Stage 'yolo' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'a0c565776262211bab629901bf237687a3e62'
+  strings_ka:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/run5
+      - run:
+          name: Proceed to block
+          command: |
+            mkdir -p /tmp/run5
+            { set +o pipefail 2>/dev/null; find /etc -maxdepth 1 -type f -printf '%s\n' 2>/dev/null | awk '$1 % 2 == 0' | paste -sd+; true ; } > /tmp/run5/pulse.lagoon.lambda
+            echo "Stage 'q2-smoke' has produced its output successfully"
+      - persist_to_workspace:
+          root: /tmp/run5
+          paths:
+            - 'pulse.lagoon.lambda'
+workflows:
+  matrix:
+    jobs:
+      - DualObservableSymbolStore
+      - MASK_INTERCEPTOR:
+          requires:
+            - DualObservableSymbolStore
+      - nova-alpha:
+          requires:
+            - MASK_INTERCEPTOR
+      - convertrect:
+          requires:
+            - MASK_INTERCEPTOR
+      - LazySensorPlugin:
+          requires:
+            - convertrect
+      - v7-ga:
+          requires:
+            - LazySensorPlugin
+      - ddw:
+          requires:
+            - LazySensorPlugin
+      - ammoCam:
+          requires:
+            - ddw
+      - release:
+          requires:
+            - ammoCam
+      - v8_4_84:
+          requires:
+            - ammoCam
+      - libitem:
+          requires:
+            - v8_4_84
+      - pr-old:
+          requires:
+            - libitem
+      - TotalGlobalFastCheckout:
+          requires:
+            - libitem
+      - Stale:
+          requires:
+            - TotalGlobalFastCheckout
+      - ship-it:
+          requires:
+            - Stale
+      - Option-Phone-Input:
+          requires:
+            - Stale
+      - CommonRecordModule:
+          requires:
+            - Option-Phone-Input
+      - preview:
+          requires:
+            - CommonRecordModule
+      - relays_list:
+          requires:
+            - CommonRecordModule
+      - eta_bar:
+          requires:
+            - relays_list
+      - beta-v3:
+          requires:
+            - eta_bar
+      - DelegatingBufferProcessor
+      - STAGE_STG:
+          requires:
+            - DelegatingBufferProcessor
+      - ConcreteSymbolAdapter:
+          requires:
+            - DelegatingBufferProcessor
+      - WEB-605:
+          requires:
+            - ConcreteSymbolAdapter
+      - recomend_factory:
+          requires:
+            - ConcreteSymbolAdapter
+      - Prepare_Staging5:
+          requires:
+            - recomend_factory
+      - price254:
+          requires:
+            - recomend_factory
+      - gating:
+          requires:
+            - price254
+      - rewind-lock:
+          requires:
+            - price254
+      - p-v2:
+          requires:
+            - rewind-lock
+      - route_2009_02:
+          requires:
+            - rewind-lock
+      - node20-fmt:
+          requires:
+            - route_2009_02
+      - scope_unmount:
+          requires:
+            - route_2009_02
+      - node20-test:
+          requires:
+            - scope_unmount
+      - espressoPiston:
+          requires:
+            - scope_unmount
+      - succes-only:
+          requires:
+            - espressoPiston
+      - aquax
+      - mega-migration
+      - dfghjkbnm
+      - CHECK_DEV:
+          requires:
+            - aquax
+            - mega-migration
+            - dfghjkbnm
+      - green-light:
+          requires:
+            - aquax
+            - mega-migration
+            - dfghjkbnm
+      - v3-preview1:
+          requires:
+            - aquax
+            - mega-migration
+            - dfghjkbnm
+      - kilo-6:
+          requires:
+            - aquax
+            - mega-migration
+            - dfghjkbnm
+      - qa:
+          requires:
+            - aquax
+            - mega-migration
+            - dfghjkbnm
+      - j4-40
+      - FOSTER
+      - httpsTrimTotal
+      - whiskey:
+          requires:
+            - j4-40
+            - FOSTER
+            - httpsTrimTotal
+      - validte:
+          requires:
+            - j4-40
+            - FOSTER
+            - httpsTrimTotal
+      - may5-smoke:
+          requires:
+            - j4-40
+            - FOSTER
+            - httpsTrimTotal
+      - v2-nightly3:
+          requires:
+            - j4-40
+            - FOSTER
+            - httpsTrimTotal
+      - java17-cov:
+          requires:
+            - j4-40
+            - FOSTER
+            - httpsTrimTotal
+      - fix-6366:
+          requires:
+            - j4-40
+            - FOSTER
+            - httpsTrimTotal
+      - verify-full-artifact-bundle:
+          requires:
+            - j4-40
+            - FOSTER
+            - httpsTrimTotal
+      - verify-end-to-end-docker-image:
+          requires:
+            - j4-40
+            - FOSTER
+            - httpsTrimTotal
+      - armor-trait-stale-rollback
+      - addr_prod:
+          requires:
+            - armor-trait-stale-rollback
+      - yolo:
+          requires:
+            - addr_prod
+      - text_platinum:
+          requires:
+            - addr_prod
+      - strings_ka:
+          requires:
+            - text_platinum
+      - q2-smoke:
+          requires:
+            - strings_ka
